@@ -43,8 +43,8 @@ class PayPal {
 	const API_USERNAME = "seller_1292143286_biz_api1.maly.cz";
 	const API_PASSWORD = "Q7CJRUYB78VRBQJE";
 	const API_SIGNATURE = "AFcWxV21C7fd0v3bYYYRCpSSRl31AG3kmeBO.WNobm8wIHQ.T0edtV6l";
-	const PP_RETURN = "pp/ppreturn.php";
-	const PP_CANCEL = "pp/ppcancel.php";
+	const PP_RETURN = "http://test/pp/ppreturn.php";
+	const PP_CANCEL = "http://test/pp/ppcancel.php";
 
 	private $endpoint;
 	private $host;
@@ -60,22 +60,6 @@ class PayPal {
 			$this->host = "api-3t.sandbox.paypal.com";
 			$this->gate = 'https://www.sandbox.paypal.com/cgi-bin/webscr?';
 		}
-	}
-
-	/**
-	 * @return string URL of the "success" page
-	 */
-	private function getReturnTo() {
-		return sprintf("%s://%s/" . self::PP_RETURN,
-		$this->getScheme(), $_SERVER['SERVER_NAME']);
-	}
-
-	/**
-	 * @return string URL of the "cancel" page
-	 */
-	private function getReturnToCancel() {
-		return sprintf("%s://%s/" . self::PP_CANCEL,
-		$this->getScheme(), $_SERVER['SERVER_NAME']);
 	}
 
 	/**
@@ -115,8 +99,8 @@ class PayPal {
 		$data = array(
 		'PAYMENTACTION' =>'Sale',
 		'AMT' =>$amount,
-		'RETURNURL' =>$this->getReturnTo(),
-		'CANCELURL'  =>$this->getReturnToCancel(),
+		'RETURNURL' => self::PP_RETURN,
+		'CANCELURL'  => self::PP_CANCEL,
 		'DESC'=>$desc,
 		'NOSHIPPING'=>"1",
 		'ALLOWNOTE'=>"1",
