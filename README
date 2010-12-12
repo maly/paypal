@@ -1,0 +1,44 @@
+How to implement PayPal Express checkout for simple (and single) payment on your web site?
+
+PayPal allows their users to implement checkout functions using their API. But implementing the full API is not a piece of cake. There are some libraries on the web, but the most of them are paid, closed or too complex.
+
+If you wanna implement simple and single-item payments (i.e. "pay for service" or "pay for source code"), you can use my, free and open, library described here.
+
+This library was written as a part of my framework, but it's usable standalone too, I hope. ;)
+
+How to implement, step-by-step:
+
+   1. Download the library
+   2. Get your API Name, Password and Signature, as described here. In a short way:
+          * Log into PayPal and click Profile.
+          * Click API Access from the Profile menu.
+          * Click Request API Credentials.
+          * Check Request API signature and click Agree and Submit.
+          * Write down your credentials (Name, Password and Signature)
+          * Click on Done
+   3. Modify the classes/paypal.php file:
+          * Write your PayPal credentials in the appropriate place
+          * Change the getReturnTo() and getReturnToCancel() function, if needed, i.e. if you need other URL for returned user than /ppreturn and /ppcancel
+
+There are two demo files in the /controllers folder. The main payment script is the pay.php. You should see everything is straightforward and simple. You should create an instantion of the PayPal class and call their doExpressCheckout method. This method has these parameters:
+
+$amount
+    A desired amount of money
+$desc
+    Item description
+$invoice (default: empty)
+    Invoice internal ID. This is suitable when you want to assign the payment with the right invoice.
+$currency (default: USD)
+    Three-letter currency code (List of the currency codes)
+
+If everything is OK, the user is redirected to PayPal page to log in and confirm the payment. If something was wrong, the array is returned. This array contains the error information (Response codes).
+
+If everything went OK, the user is redirected to PayPal page, s/he can confirm or cancel his/her payment, and then is redirected back to your web, to the URL defined in the getReturnTo() resp. getReturnToCancel() functions, as discussed above.
+
+In the "cancel" page you haven't to do anything special, just say "Your payment was cancelled".
+
+In the "return" page (check /controllers/ppreturn.php) you have to do one simple operation - call the doPayment() method of the PayPal object. This method calls the API function which confirms the money transfer and execute it. The doPayment() method returns the response code you can use to decide if the payment is OK (and display serial number or unlock the access or something else).
+
+You can call the getCheckoutDetails() method to obtain the detail information about the transaction. The list of returned values is very rich. Here is the invoice number (INVNUM) you can use to pair the payment with the appropriate order.
+
+If you want to play with this library at PayPal Sandbox, you have to generate PayPal object as new PayPal();. But on the production server you have use new PayPal(true); to prevent unwanted side effect, such as money lost... ;)
