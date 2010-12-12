@@ -41,4 +41,4 @@ In the "return" page (check /controllers/ppreturn.php) you have to do one simple
 
 You can call the getCheckoutDetails() method to obtain the detail information about the transaction. The list of returned values is very rich. Here is the invoice number (INVNUM) you can use to pair the payment with the appropriate order.
 
-If you want to play with this library at PayPal Sandbox, you have to generate PayPal object as new PayPal();. But on the production server you have use new PayPal(true); to prevent unwanted side effect, such as money lost... ;)
+If you want to play with this library at PayPal Sandbox, you have to generate PayPal object as new PayPal();. But on the production server you have use new PayPal(true); to prevent unwanted side effect, such as money loose... ;)

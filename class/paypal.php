@@ -40,9 +40,11 @@ class PayPal {
 
 	//these constants you have to obtain from PayPal
 	//Step-by-step manual is here: https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_NVPAPIBasics
-	const API_USERNAME = "USERNAME";
-	const API_PASSWORD = "PASSWORD";
-	const API_SIGNATURE = "SIGNATURE";
+	const API_USERNAME = "seller_1292143286_biz_api1.maly.cz";
+	const API_PASSWORD = "Q7CJRUYB78VRBQJE";
+	const API_SIGNATURE = "AFcWxV21C7fd0v3bYYYRCpSSRl31AG3kmeBO.WNobm8wIHQ.T0edtV6l";
+	const PP_RETURN = "pp/ppreturn.php";
+	const PP_CANCEL = "pp/ppcancel.php";
 
 	private $endpoint;
 	private $host;
@@ -64,7 +66,7 @@ class PayPal {
 	 * @return string URL of the "success" page
 	 */
 	private function getReturnTo() {
-		return sprintf("%s://%s/ppreturn",
+		return sprintf("%s://%s/" . self::PP_RETURN,
 		$this->getScheme(), $_SERVER['SERVER_NAME']);
 	}
 
@@ -72,7 +74,7 @@ class PayPal {
 	 * @return string URL of the "cancel" page
 	 */
 	private function getReturnToCancel() {
-		return sprintf("%s://%s/ppcancel",
+		return sprintf("%s://%s/" . self::PP_CANCEL,
 		$this->getScheme(), $_SERVER['SERVER_NAME']);
 	}
 
@@ -120,7 +122,7 @@ class PayPal {
 		'ALLOWNOTE'=>"1",
 		'CURRENCYCODE'=>$currency,
 		'METHOD' =>'SetExpressCheckout');
-
+		
 		$data['CUSTOM'] = $amount.'|'.$currency.'|'.$invoice;
 		if ($invoice) $data['INVNUM'] = $invoice;
 

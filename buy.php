@@ -1,13 +1,13 @@
 <?php
 /**
- * PayPal successfull payment return
+ * Pay with PayPal
  *
  * @version 1.0
  * @author Martin Maly - http://www.php-suit.com
  * @copyright (C) 2008 martin maly
  */
- 
- /*
+
+/*
 * Copyright (c) 2008 Martin Maly - http://www.php-suit.com
 * All rights reserved.
 *
@@ -34,8 +34,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-require_once('../classes/paypal.php'); //when needed
-require_once('../classes/httprequest.php'); //when needed
+require_once('./class/paypal.php'); //where necessary
+require_once('./class/httprequest.php'); //where necessary
 
 //Use this form for production server 
 //$r = new PayPal(true);
@@ -44,20 +44,12 @@ require_once('../classes/httprequest.php'); //when needed
 $r = new PayPal();
 
 
-/*
-$token = $_GET['token'];
-$d = $r->getCheckoutDetails($token);
-print_r($d);
-die();
-*/
+$ret = ($r->doExpressCheckout(10, 'A perfect item!'));
 
-$final = $r->doPayment();
+//An error occured. The auxiliary information is in the $ret array
 
-if ($final['ACK'] == 'Success') {
-	echo 'Succeed!';
-} else {
-	print_r($final);
-}
+echo 'Error:';
 
-die();
+print_r($ret);
+
 ?>

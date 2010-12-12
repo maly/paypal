@@ -1,13 +1,13 @@
 <?php
 /**
- * Pay with PayPal
+ * PayPal successfull payment return
  *
  * @version 1.0
  * @author Martin Maly - http://www.php-suit.com
  * @copyright (C) 2008 martin maly
  */
-
-/*
+ 
+ /*
 * Copyright (c) 2008 Martin Maly - http://www.php-suit.com
 * All rights reserved.
 *
@@ -34,8 +34,8 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-require_once('../classes/paypal.php'); //when needed
-require_once('../classes/httprequest.php'); //when needed
+require_once('./class/paypal.php'); //when needed
+require_once('./class/httprequest.php'); //when needed
 
 //Use this form for production server 
 //$r = new PayPal(true);
@@ -43,11 +43,32 @@ require_once('../classes/httprequest.php'); //when needed
 //Use this form for sandbox tests
 $r = new PayPal();
 
+$final = $r->doPayment();
 
-$ret = ($r->doExpressCheckout(10, 'Access to source code library'));
-
-//An error occured. The auxiliary information is in the $ret array
-
-print_r($ret);
-
+if ($final['ACK'] == 'Success') {
+	echo 'Succeed!';
+	print_r($r->getCheckoutDetails($final['TOKEN']));
+/* Details example:
+Array
+(
+    [TOKEN] => EC-46K253307T956310E
+    [TIMESTAMP] => 2010-12-12T09:38:01Z
+    [CORRELATIONID] => cbf9ed77f3dbe
+    [ACK] => Success
+    [VERSION] => 52.0
+    [BUILD] => 1613703
+    [EMAIL] => buyer1_1292145548_per@maly.cz
+    [PAYERID] => ZMU92MM4SPBHS
+    [PAYERSTATUS] => verified
+    [FIRSTNAME] => Test
+    [LASTNAME] => User
+    [COUNTRYCODE] => US
+    [CUSTOM] => 10|USD|
+)
+*/	
+	
+	
+} else {
+	print_r($final);
+}
 ?>
