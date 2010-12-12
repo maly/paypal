@@ -41,8 +41,8 @@ class PayPal {
 	//these constants you have to obtain from PayPal
 	//Step-by-step manual is here: https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_NVPAPIBasics
 	const API_USERNAME = "seller_1292143286_biz_api1.maly.cz";
-	const API_PASSWORD = "Q7CJRUYB78VRBQJE";
-	const API_SIGNATURE = "AFcWxV21C7fd0v3bYYYRCpSSRl31AG3kmeBO.WNobm8wIHQ.T0edtV6l";
+	const API_PASSWORD = "Q7*******JE";
+	const API_SIGNATURE = "AFcW*****V6l";
 	const PP_RETURN = "http://test/pp/ppreturn.php";
 	const PP_CANCEL = "http://test/pp/ppcancel.php";
 
