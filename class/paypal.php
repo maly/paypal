@@ -43,6 +43,7 @@ class PayPal {
 	const API_USERNAME = "seller_1292143286_biz_api1.maly.cz";
 	const API_PASSWORD = "Q7*******JE";
 	const API_SIGNATURE = "AFcW*****V6l";
+    const BUTTONSOURCE = "AngellEYE_SP_Maly";
 	const PP_RETURN = "http://test/pp/ppreturn.php";
 	const PP_CANCEL = "http://test/pp/ppcancel.php";
 
@@ -76,6 +77,7 @@ class PayPal {
 		$data['USER'] = self::API_USERNAME;
 		$data['PWD'] = self::API_PASSWORD;
 		$data['SIGNATURE'] = self::API_SIGNATURE;
+        $data['BUTTONSOURCE'] = self::BUTTONSOURCE;
 		$data['VERSION'] = '52.0';
 		$query = http_build_query($data);
 		return $query;
